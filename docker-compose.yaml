@@ -1,31 +1,125 @@
-version: '3.8'
+version: "3.8"
 
 services:
-  marketplace:
-    build: .
+  marketplace-auth:
+    container_name: marketplace-auth
+    build: ./authentication
     ports:
-      - "8000:8000"
+      - "10000:8000"
     environment:
       - TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
       - JWT_SECRET=auth_ms_jwt_secret
-      - DB_HOST=db
+      - ADMIN_JWT_SECRET=admin_auth_ms_jwt_secret
+      - ADMIN_TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
+      - DB_HOST=marketplace-auth-db
       - DB_PORT=5432
       - DB_USER=postgres
       - DB_PASSWORD=postgres
-      - DB_NAME=marketplace
+      - DB_NAME=postgres
     depends_on:
-      - db
+      - marketplace-auth-db
 
-  db:
+  marketplace-auth-db:
+    container_name: marketplace-auth-db
     image: postgres:latest
     environment:
-      POSTGRES_DB: marketplace
+      POSTGRES_DB: postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
-      - "5432:5432"
+      - "5000:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - marketplace_auth_data:/var/lib/postgresql/data
+
+  marketplace-tenant:
+    container_name: marketplace-tenant
+    build: ./tenant
+    ports:
+      - "10001:8000"
+    environment:
+      - TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
+      - JWT_SECRET=auth_ms_jwt_secret
+      - DB_HOST=marketplace-tenant-db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=postgres
+      - AUTH_ENDPOINT=http://marketplace-auth:8000/api/auth
+    depends_on:
+      - marketplace-tenant-db
+
+  marketplace-tenant-db:
+    container_name: marketplace-tenant-db
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5001:5432"
+    volumes:
+      - marketplace_tenant_data:/var/lib/postgresql/data
+
+  marketplace-product:
+    container_name: marketplace-product
+    build: ./products
+    ports:
+      - "10002:8000"
+    environment:
+      - TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
+      - JWT_SECRET=auth_ms_jwt_secret
+      - DB_HOST=marketplace-product-db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=postgres
+      - AUTH_ENDPOINT=http://marketplace-auth:8000/api/auth
+      - TENANT_ENDPOINT=http://marketplace-tenant:8000/api/tenant
+    depends_on:
+      - marketplace-product-db
+
+  marketplace-product-db:
+    container_name: marketplace-product-db
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5002:5432"
+    volumes:
+      - marketplace_product_data:/var/lib/postgresql/data
+
+  marketplace-order:
+    container_name: marketplace-order
+    build: ./orders
+    ports:
+      - "10003:8000"
+    environment:
+      - TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
+      - JWT_SECRET=auth_ms_jwt_secret
+      - DB_HOST=marketplace-auth-db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=postgres
+    depends_on:
+      - marketplace-order-db
+
+  marketplace-order-db:
+    container_name: marketplace-order-db
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5003:5432"
+    volumes:
+      - marketplace_order_data:/var/lib/postgresql/data
 
 volumes:
-  postgres_data:
+  marketplace_auth_data:
+  marketplace_tenant_data:
+  marketplace_product_data:
+  marketplace_order_data:

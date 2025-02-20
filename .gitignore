@@ -1,6 +1,7 @@
 node_modules
 build
 npm-debug.log
+bun.lockb
 .nyc
 .env
 .DS_Store
