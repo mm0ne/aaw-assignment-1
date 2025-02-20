@@ -100,6 +100,7 @@ services:
       - JWT_SECRET=auth_ms_jwt_secret
       - DB_HOST=marketplace-auth-db
       - DB_PORT=5432
+      - AUTH_ENDPOINT=http://marketplace-auth:8000/api/auth
       - DB_USER=postgres
       - DB_PASSWORD=postgres
       - DB_NAME=postgres
@@ -118,8 +119,38 @@ services:
     volumes:
       - marketplace_order_data:/var/lib/postgresql/data
 
+  marketplace-wishlist:
+    container_name: marketplace-wishlist
+    build: ./wishlist
+    ports:
+      - "10004:8000"
+    environment:
+      - TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
+      - JWT_SECRET=auth_ms_jwt_secret
+      - DB_HOST=marketplace-auth-db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - AUTH_ENDPOINT=http://marketplace-auth:8000/api/auth
+      - DB_PASSWORD=postgres
+      - DB_NAME=postgres
+    depends_on:
+      - marketplace-order-db
+
+  marketplace-wishlist-db:
+    container_name: marketplace-wishlist-db
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5004:5432"
+    volumes:
+      - marketplace_wishlist_data:/var/lib/postgresql/data
+
 volumes:
   marketplace_auth_data:
   marketplace_tenant_data:
   marketplace_product_data:
   marketplace_order_data:
+  marketplace_wishlist_data:

@@ -26,7 +26,8 @@ const verifyAdminToken = async (token: string): Promise<User> => {
     }
   );
 
-  if (response.status == 200) return response.data;
+  console.log("[RESPONSE DATA]", response.data);
+  if (response.status == 200) return response.data.user as User;
   else return undefined as unknown as User;
 };
 
@@ -46,14 +47,8 @@ export const verifyJWTTenant = async (
       return res.status(401).send({ message: "Invalid token" });
     }
 
-    const verifiedPayload = {
-      status: 200,
-      data: {
-        user: payload,
-      },
-    };
-
-    req.body.user = verifiedPayload.data.user;
+    console.log("[PAYLOAD verifyJWTTenant]", payload);
+    req.body.user = payload;
     next();
   } catch (error) {
     return res

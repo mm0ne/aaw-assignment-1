@@ -29,7 +29,7 @@ const verifyAdminToken = async (token: string): Promise<User> => {
     }
   );
 
-  if (response.status == 200) return response.data;
+  if (response.status == 200) return response.data.user;
   else return undefined as unknown as User;
 };
 
@@ -68,16 +68,8 @@ export const verifyJWTProduct = async (
         user: payload,
       },
     };
-
-    const SERVER_TENANT_ID = process.env.TENANT_ID;
-    if (!SERVER_TENANT_ID) {
-      return res.status(500).send({ message: "Server Tenant ID not found" });
-    }
-    const tenantPayload = await getTenant(SERVER_TENANT_ID, token);
-
-    if (!tenantPayload) {
-      return res.status(500).send({ message: "Server Tenant not found" });
-    }
+    const { tenant_id } = (await jwt.decode(token)) as JWTUser;
+    const tenantPayload = await getTenant(tenant_id, token);
 
     const verifiedTenantPayload = {
       status: 200,

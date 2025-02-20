@@ -29,7 +29,7 @@ app.use(express.json());
 
 // Routes
 app.use("/api/order", orderRoutes);
-app.use("/api/cart", orderRoutes);
+app.use("/api/cart", cartRoutes);
 
 // Health check endpoint
 app.get("/health", (_, res) => {
