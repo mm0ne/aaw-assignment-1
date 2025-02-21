@@ -15,7 +15,7 @@ const metricsMiddleware = express_prom_bundle({
   includePath: true,
   includeStatusCode: true,
   includeUp: true,
-  customLabels: { project_name: "marketplace-monolith" },
+  customLabels: { project_name: "marketplace-tenant" },
   promClient: {
     collectDefaultMetrics: {},
   },
@@ -37,7 +37,7 @@ app.get("/health", (_, res) => {
 // Root endpoint
 app.get("/", (_, res) => {
   res.status(200).json({
-    message: "Marketplace API",
+    message: "Marketplace Tenant API",
     version: "1.0.0",
   });
 });

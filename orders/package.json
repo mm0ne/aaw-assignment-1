@@ -1,7 +1,7 @@
 {
-  "name": "marketplace",
+  "name": "marketplace-order",
   "version": "1.0.0",
-  "description": "marketplace",
+  "description": "marketplace-order",
   "main": "src/server.ts",
   "scripts": {
     "start": "node dist/server.js",

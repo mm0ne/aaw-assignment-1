@@ -1,7 +1,7 @@
 {
-  "name": "marketplace",
+  "name": "marketplace-auth",
   "version": "1.0.0",
-  "description": "marketplace",
+  "description": "marketplace-auth",
   "main": "src/server.ts",
   "scripts": {
     "start": "node dist/server.js",
