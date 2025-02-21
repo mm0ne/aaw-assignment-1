@@ -13,7 +13,10 @@ export const verifyAdminTokenService = async (token: string) => {
     ) as JwtPayload;
 
     const { id, tenant_id } = payload;
+
     const SERVER_TENANT_ID = process.env.ADMIN_TENANT_ID;
+    console.log("[ADMIN JWT PAYLOAD]", payload);
+    console.log("[CURRENT SERVER TENANT ID]", SERVER_TENANT_ID);
     if (!SERVER_TENANT_ID) {
       return new InternalServerErrorResponse(
         "Server tenant ID is missing"

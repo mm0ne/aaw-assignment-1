@@ -1,48 +1,11 @@
 {
-  "id": "4b08a9ab-028c-4d72-ab26-837a8d4d4663",
+  "id": "75591cc8-dff5-4437-8c96-061e6f89bf49",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
   "tables": {
-    "categories": {
-      "name": "categories",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "gen_random_uuid()"
-        },
-        "name": {
-          "name": "name",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "tenant_id": {
-          "name": "tenant_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {
-        "categories_id_tenant_id_pk": {
-          "name": "categories_id_tenant_id_pk",
-          "columns": [
-            "id",
-            "tenant_id"
-          ]
-        }
-      },
-      "uniqueConstraints": {}
-    },
-    "products": {
-      "name": "products",
+    "wishlist": {
+      "name": "wishlist",
       "schema": "",
       "columns": {
         "id": {
@@ -58,49 +21,58 @@
           "primaryKey": false,
           "notNull": true
         },
-        "name": {
-          "name": "name",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "description": {
-          "name": "description",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "price": {
-          "name": "price",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "quantity_available": {
-          "name": "quantity_available",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "category_id": {
-          "name": "category_id",
+        "user_id": {
+          "name": "user_id",
           "type": "uuid",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "wishlist_detail": {
+      "name": "wishlist_detail",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "wishlist_id": {
+          "name": "wishlist_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "product_id": {
+          "name": "product_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
         }
       },
       "indexes": {},
       "foreignKeys": {
-        "products_category_id_fkey": {
-          "name": "products_category_id_fkey",
-          "tableFrom": "products",
-          "tableTo": "categories",
+        "wishlist_detail_wishlist_id_wishlist_id_fk": {
+          "name": "wishlist_detail_wishlist_id_wishlist_id_fk",
+          "tableFrom": "wishlist_detail",
+          "tableTo": "wishlist",
           "columnsFrom": [
-            "tenant_id",
-            "category_id"
+            "wishlist_id"
           ],
           "columnsTo": [
-            "tenant_id",
             "id"
           ],
           "onDelete": "no action",

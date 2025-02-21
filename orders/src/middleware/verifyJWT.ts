@@ -20,7 +20,7 @@ const verifyToken = async (token: string): Promise<User> => {
     },
   });
 
-  if (response.status == 200) return response.data;
+  if (response.status == 200) return response.data.user as User;
   else return undefined as unknown as User;
 };
 
@@ -42,15 +42,8 @@ export const verifyJWT = async (
         .status(401)
         .json(new UnauthenticatedResponse("Invalid token").generate());
     }
-    // const decoded = jwt.verify(token, process.env.JWT_SECRET!) as JWTUser;
 
-    // const SERVER_TENANT_ID = process.env.TENANT_ID;
-    // if (SERVER_TENANT_ID && decoded.tenant_id !== SERVER_TENANT_ID) {
-    //   return res
-    //     .status(401)
-    //     .json(new UnauthenticatedResponse("Invalid tenant").generate());
-    // }
-
+    console.log("[AUTH RESPONSE]", authResponse);
     req.body.user = authResponse;
 
     next();

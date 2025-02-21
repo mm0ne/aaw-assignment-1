@@ -55,38 +55,24 @@ export const verifyJWTProduct = async (
       return res.status(401).send({ message: "Invalid token" });
     }
 
-    const payload = await verifyAdminToken(token);
+    const user = await verifyAdminToken(token);
 
-    console.log("[ADMIN TOKEN VERIFICATION]", payload);
-    if (!payload) {
+    console.log("[ADMIN TOKEN VERIFICATION]", user);
+    if (!user) {
       return res.status(401).send({ message: "Invalid token" });
     }
 
-    const verifiedPayload = {
-      status: 200,
-      data: {
-        user: payload,
-      },
-    };
-    const { tenant_id } = (await jwt.decode(token)) as JWTUser;
-    const tenantPayload = await getTenant(tenant_id, token);
-
-    const verifiedTenantPayload = {
-      status: 200,
-      data: {
-        ...tenantPayload,
-      },
-    };
+    const { tenant_id } = jwt.decode(token) as JWTUser;
+    const tenantData = await getTenant(tenant_id, token);
 
     // Check for tenant ownership
-    if (
-      verifiedPayload.data.user.id !==
-      verifiedTenantPayload.data.tenants.owner_id
-    ) {
+    console.log("[USER]", user);
+    console.log("[TENANT DATA]", tenantData);
+    if (user.id !== tenantData.tenants.owner_id) {
       return res.status(401).send({ message: "Invalid token" });
     }
 
-    req.body.user = verifiedPayload.data.user;
+    req.body.user = user;
     next();
   } catch (error) {
     console.error("[ERROR]", error);

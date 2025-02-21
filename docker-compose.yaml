@@ -10,7 +10,7 @@ services:
       - TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
       - JWT_SECRET=auth_ms_jwt_secret
       - ADMIN_JWT_SECRET=admin_auth_ms_jwt_secret
-      - ADMIN_TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
+      - ADMIN_TENANT_ID=03935b07-4106-45d6-a6cb-19c5a7f33c47
       - DB_HOST=marketplace-auth-db
       - DB_PORT=5432
       - DB_USER=postgres
@@ -98,7 +98,7 @@ services:
     environment:
       - TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
       - JWT_SECRET=auth_ms_jwt_secret
-      - DB_HOST=marketplace-auth-db
+      - DB_HOST=marketplace-order-db
       - DB_PORT=5432
       - AUTH_ENDPOINT=http://marketplace-auth:8000/api/auth
       - DB_USER=postgres
@@ -127,7 +127,7 @@ services:
     environment:
       - TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
       - JWT_SECRET=auth_ms_jwt_secret
-      - DB_HOST=marketplace-auth-db
+      - DB_HOST=marketplace-wishlist-db
       - DB_PORT=5432
       - DB_USER=postgres
       - AUTH_ENDPOINT=http://marketplace-auth:8000/api/auth

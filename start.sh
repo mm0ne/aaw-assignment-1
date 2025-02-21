@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-service_list=("authentication" "tenant" "products" "orders")
+service_list=("authentication" "tenant" "products" "orders" "wishlist")
 prepare_db() {
     local service=$1
 
