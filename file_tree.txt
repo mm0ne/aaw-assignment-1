@@ -1,0 +1,156 @@
+.
+├── README.md
+├── authentication
+│   ├── Dockerfile
+│   ├── bun.lockb
+│   ├── db
+│   │   └── schema
+│   │       └── users.ts
+│   ├── drizzle.config.ts
+│   ├── package.json
+│   ├── pnpm-lock.yaml
+│   ├── src
+│   │   ├── commons
+│   │   │   ├── patterns
+│   │   │   └── types
+│   │   ├── db
+│   │   │   ├── index.ts
+│   │   │   └── migrate.ts
+│   │   ├── generateAdminToken.ts
+│   │   ├── middleware
+│   │   │   └── validate.ts
+│   │   ├── server.ts
+│   │   └── user
+│   │       ├── dao
+│   │       ├── services
+│   │       ├── user.handler.ts
+│   │       ├── user.routes.ts
+│   │       └── validation
+│   └── tsconfig.json
+├── docker-compose.yaml
+├── file_tree.txt
+├── orders
+│   ├── Dockerfile
+│   ├── bun.lockb
+│   ├── db
+│   │   └── schema
+│   │       ├── cart.ts
+│   │       ├── order.ts
+│   │       ├── orderDetail.ts
+│   │       └── payment.ts
+│   ├── drizzle.config.ts
+│   ├── package.json
+│   ├── pnpm-lock.yaml
+│   ├── src
+│   │   ├── cart
+│   │   │   ├── cart.handler.ts
+│   │   │   ├── cart.routes.ts
+│   │   │   ├── dao
+│   │   │   ├── services
+│   │   │   └── validation
+│   │   ├── commons
+│   │   │   ├── patterns
+│   │   │   └── types
+│   │   ├── db
+│   │   │   ├── index.ts
+│   │   │   └── migrate.ts
+│   │   ├── middleware
+│   │   │   ├── index.ts
+│   │   │   ├── validate.ts
+│   │   │   └── verifyJWT.ts
+│   │   ├── order
+│   │   │   ├── dao
+│   │   │   ├── order.handler.ts
+│   │   │   ├── order.routes.ts
+│   │   │   ├── services
+│   │   │   └── validation
+│   │   └── server.ts
+│   └── tsconfig.json
+├── products
+│   ├── Dockerfile
+│   ├── bun.lockb
+│   ├── db
+│   │   └── schema
+│   │       ├── categories.ts
+│   │       └── products.ts
+│   ├── drizzle.config.ts
+│   ├── package.json
+│   ├── pnpm-lock.yaml
+│   ├── src
+│   │   ├── commons
+│   │   │   ├── patterns
+│   │   │   └── types
+│   │   ├── db
+│   │   │   ├── index.ts
+│   │   │   └── migrate.ts
+│   │   ├── middleware
+│   │   │   ├── index.ts
+│   │   │   ├── validate.ts
+│   │   │   └── verifyJWTProduct.ts
+│   │   ├── product
+│   │   │   ├── dao
+│   │   │   ├── product.handler.ts
+│   │   │   ├── product.routes.ts
+│   │   │   ├── services
+│   │   │   └── validation
+│   │   └── server.ts
+│   └── tsconfig.json
+├── start.sh
+├── tenant
+│   ├── Dockerfile
+│   ├── bun.lockb
+│   ├── db
+│   │   └── schema
+│   │       ├── tenantDetails.ts
+│   │       └── tenants.ts
+│   ├── drizzle.config.ts
+│   ├── package.json
+│   ├── pnpm-lock.yaml
+│   ├── src
+│   │   ├── commons
+│   │   │   ├── patterns
+│   │   │   └── types
+│   │   ├── db
+│   │   │   ├── index.ts
+│   │   │   └── migrate.ts
+│   │   ├── middleware
+│   │   │   ├── index.ts
+│   │   │   ├── validate.ts
+│   │   │   └── verifyJWTTenant.ts
+│   │   ├── server.ts
+│   │   └── tenant
+│   │       ├── dao
+│   │       ├── services
+│   │       ├── tenant.handler.ts
+│   │       ├── tenant.routes.ts
+│   │       └── validation
+│   └── tsconfig.json
+└── wishlist
+    ├── Dockerfile
+    ├── bun.lockb
+    ├── db
+    │   └── schema
+    │       ├── wishlist.ts
+    │       └── wishlistDetail.ts
+    ├── drizzle.config.ts
+    ├── package.json
+    ├── pnpm-lock.yaml
+    ├── src
+    │   ├── commons
+    │   │   ├── patterns
+    │   │   └── types
+    │   ├── db
+    │   │   ├── index.ts
+    │   │   └── migrate.ts
+    │   ├── middleware
+    │   │   ├── index.ts
+    │   │   ├── validate.ts
+    │   │   └── verifyJWT.ts
+    │   ├── server.ts
+    │   └── wishlist
+    │       ├── dao
+    │       ├── services
+    │       ├── validation
+    │       ├── wishlist.handler.ts
+    │       └── wishlist.routes.ts
+    └── tsconfig.json
