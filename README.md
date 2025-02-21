@@ -1,5 +1,9 @@
 # Marketplace API
 
+## How to Run
+
+1. `chmod +x start.sh && ./start.sh`
+
 ## Overview
 
 REST API for a marketplace application built with Express.js, PostgreSQL, and Drizzle ORM.
