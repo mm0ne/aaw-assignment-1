@@ -6,3 +6,4 @@ bun.lockb
 .env
 .DS_Store
 dist
+drizzle
