@@ -10,7 +10,7 @@ services:
       - TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
       - JWT_SECRET=auth_ms_jwt_secret
       - ADMIN_JWT_SECRET=admin_auth_ms_jwt_secret
-      - ADMIN_TENANT_ID=03935b07-4106-45d6-a6cb-19c5a7f33c47
+      - ADMIN_TENANT_ID=e2b01bfb-4fb4-41b8-9542-66eeda976537
       - DB_HOST=marketplace-auth-db
       - DB_PORT=5432
       - DB_USER=postgres
