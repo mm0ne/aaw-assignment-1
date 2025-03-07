@@ -18,7 +18,7 @@ prepare_db() {
 }
 
 echo "Building and Starting Services..."
-docker compose up --build -d
+docker compose up -d
 echo "Services up."
 sleep 1
 
