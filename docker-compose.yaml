@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   marketplace-auth:
     container_name: marketplace-auth
@@ -10,7 +8,7 @@ services:
       - TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
       - JWT_SECRET=auth_ms_jwt_secret
       - ADMIN_JWT_SECRET=admin_auth_ms_jwt_secret
-      - ADMIN_TENANT_ID=e2b01bfb-4fb4-41b8-9542-66eeda976537
+      - ADMIN_TENANT_ID=0b7ebff2-9b90-4a68-8ca6-1cccbd4d2951
       - DB_HOST=marketplace-auth-db
       - DB_PORT=5432
       - DB_USER=postgres
@@ -101,6 +99,7 @@ services:
       - DB_HOST=marketplace-order-db
       - DB_PORT=5432
       - AUTH_ENDPOINT=http://marketplace-auth:8000/api/auth
+      - PRODUCT_MS_URL=http://marketplace-product:8000/api
       - DB_USER=postgres
       - DB_PASSWORD=postgres
       - DB_NAME=postgres
@@ -147,6 +146,37 @@ services:
       - "5004:5432"
     volumes:
       - marketplace_wishlist_data:/var/lib/postgresql/data
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.47.2
+    container_name: cadvisor
+    privileged: true
+    ports:
+      - "8080:8080"
+    volumes:
+      - "/:/rootfs:ro"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "/sys:/sys:ro"
+      - "/var/lib/docker/:/var/lib/docker:ro"
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    restart: unless-stopped
 
 volumes:
   marketplace_auth_data:
