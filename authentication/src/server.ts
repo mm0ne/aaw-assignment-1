@@ -4,7 +4,8 @@ dotenv.config();
 import express, { Express, NextFunction, Request, Response } from "express";
 import cors from "cors";
 
-import authRoutes from "@src/user/user.routes";
+import authRoutesV1 from "@src/user/user.routes";
+import authRoutesV2 from "@src/user/user.routes.v2";
 import express_prom_bundle from "express-prom-bundle";
 
 const app: Express = express();
@@ -27,7 +28,8 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use("/api/auth", authRoutes);
+app.use("/api/auth/v1", authRoutesV1);
+app.use("/api/auth/v2", authRoutesV2);
 
 // Health check endpoint
 app.get("/health", (_, res) => {
