@@ -5,7 +5,9 @@ import express, { Express, NextFunction, Request, Response } from "express";
 import cors from "cors";
 
 import orderRoutes from "@src/order/order.routes";
-import cartRoutes from "@src/cart/cart.routes";
+import cartRoutesV1 from "@src/cart/cart.routes";
+import cartRoutesV2 from "@src/cart/cart.routes.v2";
+
 import express_prom_bundle from "express-prom-bundle";
 
 const app: Express = express();
@@ -29,7 +31,8 @@ app.use(express.json());
 
 // Routes
 app.use("/api/order", orderRoutes);
-app.use("/api/cart", cartRoutes);
+app.use("/api/v1/cart", cartRoutesV1);
+app.use("/api/v2/cart", cartRoutesV2);
 
 // Health check endpoint
 app.get("/health", (_, res) => {
