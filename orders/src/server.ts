@@ -4,7 +4,8 @@ dotenv.config();
 import express, { Express, NextFunction, Request, Response } from "express";
 import cors from "cors";
 
-import orderRoutes from "@src/order/order.routes";
+import orderRoutesV1 from "@src/order/order.routes";
+import orderRoutesV2 from "@src/order/order.routes.v2";
 import cartRoutesV1 from "@src/cart/cart.routes";
 import cartRoutesV2 from "@src/cart/cart.routes.v2";
 
@@ -30,7 +31,8 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use("/api/order", orderRoutes);
+app.use("/api/v1/order", orderRoutesV1);
+app.use("/api/v2/order", orderRoutesV2);
 app.use("/api/v1/cart", cartRoutesV1);
 app.use("/api/v2/cart", cartRoutesV2);
 
