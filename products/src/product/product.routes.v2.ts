@@ -10,8 +10,14 @@ router.get(
   validate(Validation.getProductByIdSchema),
   Handler.getProductByIdHandlerV2
 );
+router.post(
+  "",
+  verifyJWTProduct,
+  validate(Validation.createProductSchemaV2),
+  Handler.createProductHandlerV2
+);
 router.put(
-  "/",
+  "",
   verifyJWTProduct,
   validate(Validation.editProductSchemaV2),
   Handler.editProductHandlerV2
@@ -23,7 +29,7 @@ router.put(
   Handler.editCategoryHandlerV2
 );
 router.delete(
-  "/:id",
+  "/:productId",
   verifyJWTProduct,
   validate(Validation.deleteProductSchema),
   Handler.deleteProductHandlerV2

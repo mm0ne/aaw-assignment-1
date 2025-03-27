@@ -4,6 +4,7 @@ export * from "./getProductById.service";
 export * from "./getProductById.service.v2";
 export * from "./getProductByCategory.service";
 export * from "./createProduct.service";
+export * from "./createProduct.service.v2";
 export * from "./getAllCategories.service";
 export * from "./createCategory.service";
 export * from "./editProduct.service";

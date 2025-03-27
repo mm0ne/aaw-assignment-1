@@ -2,6 +2,7 @@ export * from "./getProductById.schema";
 export * from "./getManyProductDatasById.schema";
 export * from "./getProductByCategory.schema";
 export * from "./createProduct.schema";
+export * from "./createProduct.schema.v2";
 export * from "./createCategory.schema";
 export * from "./deleteProduct.schema";
 export * from "./deleteCategory.schema";
