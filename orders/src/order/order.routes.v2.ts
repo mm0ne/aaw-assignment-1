@@ -19,6 +19,7 @@ router.post(
 );
 router.post(
   "/pay",
+  verifyJWT,
   validate(Validation.payOrderSchemaV2),
   Handler.payOrderHandlerV2
 );

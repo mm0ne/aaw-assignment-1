@@ -16,9 +16,11 @@ export const placeOrderHandlerV2 = async (req: Request, res: Response) => {
 };
 
 export const payOrderHandlerV2 = async (req: Request, res: Response) => {
-  const { payment_method, payment_reference, amount, orderId } = req.body;
-  const response = await Service.payOrderService(
-    orderId,
+  const { payment_method, payment_reference, amount, order_id, user } =
+    req.body;
+  const response = await Service.payOrderServiceV2(
+    user.id,
+    order_id,
     payment_method,
     payment_reference,
     amount
