@@ -9,7 +9,7 @@ spec:
     app: marketplace-auth
   ports:
     - protocol: TCP
-      port: 8080
+      port: 8000
       targetPort: 8000
       nodePort: 30000
 
@@ -25,7 +25,7 @@ spec:
     app: marketplace-tenant
   ports:
     - protocol: TCP
-      port: 8080
+      port: 8000
       targetPort: 8000
       nodePort: 30001
 
@@ -41,7 +41,7 @@ spec:
     app: marketplace-product
   ports:
     - protocol: TCP
-      port: 8080
+      port: 8000
       targetPort: 8000
       nodePort: 30002
 
@@ -57,7 +57,7 @@ spec:
     app: marketplace-order
   ports:
     - protocol: TCP
-      port: 8080
+      port: 8000
       targetPort: 8000
       nodePort: 30003
 
@@ -73,7 +73,7 @@ spec:
     app: marketplace-wishlist
   ports:
     - protocol: TCP
-      port: 8080
+      port: 8000
       targetPort: 8000
       nodePort: 30004
 

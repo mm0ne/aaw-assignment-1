@@ -20,25 +20,48 @@ spec:
           ports:
             - containerPort: 8000
           env:
-            - name: ADMIN_JWT_SECRET
-              value: "admin_auth_ms_jwt_secret"
-            - name: ADMIN_TENANT_ID
-              value: "2f61bfd8-630a-4b2e-a88f-e94a7bc89ee7"
-            - name: TENANT_ID
-              value: "2f61bfd8-630a-4b2e-a88f-e94a7bc89ee7"
             - name: DB_HOST
-              value: "marketplace-auth-db.marketplace.svc.cluster.local"
-            - name: DB_PORT
-              value: "5432"
-            - name: DB_USER
-              value: "postgres"
-            - name: DB_NAME
-              value: "postgres"
+              value: "marketplace-auth-db"
+            - name: ADMIN_JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: marketplace-secrets
+                  key: ADMIN_JWT_SECRET
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: marketplace-secrets
+                  key: JWT_SECRET
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: marketplace-secrets
                   key: DB_PASSWORD
+            - name: ADMIN_TENANT_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: marketplace-config
+                  key: ADMIN_TENANT_ID
+            - name: TENANT_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: marketplace-config
+                  key: TENANT_ID
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: marketplace-config
+                  key: DB_PORT
+            - name: DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: marketplace-config
+                  key: DB_USER
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: marketplace-config
+                  key: DB_NAME
 
 ---
 apiVersion: apps/v1
@@ -63,23 +86,53 @@ spec:
           ports:
             - containerPort: 8000
           env:
-            - name: AUTH_ENDPOINT
-              value: http://marketplace-auth:8000/api/v1/auth
             - name: DB_HOST
-              value: "marketplace-tenant-db-0"
-            - name: TENANT_ID
-              value: "2f61bfd8-630a-4b2e-a88f-e94a7bc89ee7"
-            - name: DB_PORT
-              value: "5432"
-            - name: DB_USER
-              value: "postgres"
-            - name: DB_NAME
-              value: "postgres"
+              value: "marketplace-tenant-db"
+            - name: ADMIN_JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: marketplace-secrets
+                  key: ADMIN_JWT_SECRET
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: marketplace-secrets
+                  key: JWT_SECRET
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: marketplace-secrets
                   key: DB_PASSWORD
+            - name: AUTH_ENDPOINT
+              valueFrom:
+                configMapKeyRef:
+                  name: marketplace-config
+                  key: AUTH_ENDPOINT
+            - name: ADMIN_TENANT_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: marketplace-config
+                  key: ADMIN_TENANT_ID
+            - name: TENANT_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: marketplace-config
+                  key: TENANT_ID
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: marketplace-config
+                  key: DB_PORT
+            - name: DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: marketplace-config
+                  key: DB_USER
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: marketplace-config
+                  key: DB_NAME
 
 ---
 apiVersion: apps/v1
@@ -104,23 +157,58 @@ spec:
           ports:
             - containerPort: 8000
           env:
-            - name: AUTH_ENDPOINT
-              value: http://marketplace-auth:8000/api/v1/auth
             - name: DB_HOST
               value: "marketplace-product-db"
-            - name: TENANT_ID
-              value: "2f61bfd8-630a-4b2e-a88f-e94a7bc89ee7"
-            - name: DB_PORT
-              value: "5432"
-            - name: DB_USER
-              value: "postgres"
-            - name: DB_NAME
-              value: "postgres"
+            - name: ADMIN_JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: marketplace-secrets
+                  key: ADMIN_JWT_SECRET
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: marketplace-secrets
+                  key: JWT_SECRET
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: marketplace-secrets
                   key: DB_PASSWORD
+            - name: AUTH_ENDPOINT
+              valueFrom:
+                configMapKeyRef:
+                  name: marketplace-config
+                  key: AUTH_ENDPOINT
+            - name: TENANT_ENDPOINT
+              valueFrom:
+                configMapKeyRef:
+                  name: marketplace-config
+                  key: TENANT_ENDPOINT
+            - name: ADMIN_TENANT_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: marketplace-config
+                  key: ADMIN_TENANT_ID
+            - name: TENANT_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: marketplace-config
+                  key: TENANT_ID
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: marketplace-config
+                  key: DB_PORT
+            - name: DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: marketplace-config
+                  key: DB_USER
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: marketplace-config
+                  key: DB_NAME
 
 ---
 apiVersion: apps/v1
@@ -145,23 +233,58 @@ spec:
           ports:
             - containerPort: 8000
           env:
-            - name: AUTH_ENDPOINT
-              value: http://marketplace-auth:8000/api/v1/auth
             - name: DB_HOST
               value: "marketplace-order-db"
-            - name: TENANT_ID
-              value: "2f61bfd8-630a-4b2e-a88f-e94a7bc89ee7"
-            - name: DB_PORT
-              value: "5432"
-            - name: DB_USER
-              value: "postgres"
-            - name: DB_NAME
-              value: "postgres"
+            - name: ADMIN_JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: marketplace-secrets
+                  key: ADMIN_JWT_SECRET
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: marketplace-secrets
+                  key: JWT_SECRET
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: marketplace-secrets
                   key: DB_PASSWORD
+            - name: AUTH_ENDPOINT
+              valueFrom:
+                configMapKeyRef:
+                  name: marketplace-config
+                  key: AUTH_ENDPOINT
+            - name: PRODUCT_MS_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: marketplace-config
+                  key: PRODUCT_MS_URL
+            - name: ADMIN_TENANT_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: marketplace-config
+                  key: ADMIN_TENANT_ID
+            - name: TENANT_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: marketplace-config
+                  key: TENANT_ID
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: marketplace-config
+                  key: DB_PORT
+            - name: DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: marketplace-config
+                  key: DB_USER
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: marketplace-config
+                  key: DB_NAME
 
 ---
 apiVersion: apps/v1
@@ -186,20 +309,50 @@ spec:
           ports:
             - containerPort: 8000
           env:
-            - name: AUTH_ENDPOINT
-              value: http://marketplace-auth:8000/api/v1/auth
             - name: DB_HOST
               value: "marketplace-wishlist-db"
-            - name: TENANT_ID
-              value: "2f61bfd8-630a-4b2e-a88f-e94a7bc89ee7"
-            - name: DB_PORT
-              value: "5432"
-            - name: DB_USER
-              value: "postgres"
-            - name: DB_NAME
-              value: "postgres"
+            - name: ADMIN_JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: marketplace-secrets
+                  key: ADMIN_JWT_SECRET
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: marketplace-secrets
+                  key: JWT_SECRET
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: marketplace-secrets
                   key: DB_PASSWORD
+            - name: AUTH_ENDPOINT
+              valueFrom:
+                configMapKeyRef:
+                  name: marketplace-config
+                  key: AUTH_ENDPOINT
+            - name: ADMIN_TENANT_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: marketplace-config
+                  key: ADMIN_TENANT_ID
+            - name: TENANT_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: marketplace-config
+                  key: TENANT_ID
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: marketplace-config
+                  key: DB_PORT
+            - name: DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: marketplace-config
+                  key: DB_USER
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: marketplace-config
+                  key: DB_NAME
