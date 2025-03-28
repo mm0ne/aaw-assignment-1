@@ -1,0 +1,205 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: marketplace-auth
+  namespace: marketplace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: marketplace-auth
+  template:
+    metadata:
+      labels:
+        app: marketplace-auth
+    spec:
+      containers:
+        - name: marketplace-auth
+          image: marketplace-auth:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8000
+          env:
+            - name: ADMIN_JWT_SECRET
+              value: "admin_auth_ms_jwt_secret"
+            - name: ADMIN_TENANT_ID
+              value: "2f61bfd8-630a-4b2e-a88f-e94a7bc89ee7"
+            - name: TENANT_ID
+              value: "2f61bfd8-630a-4b2e-a88f-e94a7bc89ee7"
+            - name: DB_HOST
+              value: "marketplace-auth-db.marketplace.svc.cluster.local"
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: "postgres"
+            - name: DB_NAME
+              value: "postgres"
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: marketplace-secrets
+                  key: DB_PASSWORD
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: marketplace-tenant
+  namespace: marketplace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: marketplace-tenant
+  template:
+    metadata:
+      labels:
+        app: marketplace-tenant
+    spec:
+      containers:
+        - name: marketplace-tenant
+          image: marketplace-tenant:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8000
+          env:
+            - name: AUTH_ENDPOINT
+              value: http://marketplace-auth:8000/api/v1/auth
+            - name: DB_HOST
+              value: "marketplace-tenant-db-0"
+            - name: TENANT_ID
+              value: "2f61bfd8-630a-4b2e-a88f-e94a7bc89ee7"
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: "postgres"
+            - name: DB_NAME
+              value: "postgres"
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: marketplace-secrets
+                  key: DB_PASSWORD
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: marketplace-product
+  namespace: marketplace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: marketplace-product
+  template:
+    metadata:
+      labels:
+        app: marketplace-product
+    spec:
+      containers:
+        - name: marketplace-product
+          image: marketplace-product:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8000
+          env:
+            - name: AUTH_ENDPOINT
+              value: http://marketplace-auth:8000/api/v1/auth
+            - name: DB_HOST
+              value: "marketplace-product-db"
+            - name: TENANT_ID
+              value: "2f61bfd8-630a-4b2e-a88f-e94a7bc89ee7"
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: "postgres"
+            - name: DB_NAME
+              value: "postgres"
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: marketplace-secrets
+                  key: DB_PASSWORD
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: marketplace-order
+  namespace: marketplace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: marketplace-order
+  template:
+    metadata:
+      labels:
+        app: marketplace-order
+    spec:
+      containers:
+        - name: marketplace-order
+          image: marketplace-order:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8000
+          env:
+            - name: AUTH_ENDPOINT
+              value: http://marketplace-auth:8000/api/v1/auth
+            - name: DB_HOST
+              value: "marketplace-order-db"
+            - name: TENANT_ID
+              value: "2f61bfd8-630a-4b2e-a88f-e94a7bc89ee7"
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: "postgres"
+            - name: DB_NAME
+              value: "postgres"
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: marketplace-secrets
+                  key: DB_PASSWORD
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: marketplace-wishlist
+  namespace: marketplace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: marketplace-wishlist
+  template:
+    metadata:
+      labels:
+        app: marketplace-wishlist
+    spec:
+      containers:
+        - name: marketplace-wishlist
+          image: marketplace-wishlist:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8000
+          env:
+            - name: AUTH_ENDPOINT
+              value: http://marketplace-auth:8000/api/v1/auth
+            - name: DB_HOST
+              value: "marketplace-wishlist-db"
+            - name: TENANT_ID
+              value: "2f61bfd8-630a-4b2e-a88f-e94a7bc89ee7"
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: "postgres"
+            - name: DB_NAME
+              value: "postgres"
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: marketplace-secrets
+                  key: DB_PASSWORD

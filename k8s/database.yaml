@@ -1,0 +1,175 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: marketplace-auth-db
+  namespace: marketplace
+spec:
+  serviceName: "marketplace-auth-db"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: marketplace-auth-db
+  template:
+    metadata:
+      labels:
+        app: marketplace-auth-db
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:latest
+          env:
+            - name: POSTGRES_DB
+              value: postgres
+            - name: POSTGRES_USER
+              value: postgres
+            - name: POSTGRES_PASSWORD
+              value: postgres
+          volumeMounts:
+            - name: db-storage
+              mountPath: /var/lib/postgresql/data
+              subPath: marketplace-auth-data
+      volumes:
+        - name: db-storage
+          persistentVolumeClaim:
+            claimName: marketplace-db-pvc
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: marketplace-tenant-db
+  namespace: marketplace
+spec:
+  serviceName: "marketplace-tenant-db"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: marketplace-tenant-db
+  template:
+    metadata:
+      labels:
+        app: marketplace-tenant-db
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:latest
+          env:
+            - name: POSTGRES_DB
+              value: postgres
+            - name: POSTGRES_USER
+              value: postgres
+            - name: POSTGRES_PASSWORD
+              value: postgres
+          volumeMounts:
+            - name: db-storage
+              mountPath: /var/lib/postgresql/data
+              subPath: marketplace-tenant-data
+      volumes:
+        - name: db-storage
+          persistentVolumeClaim:
+            claimName: marketplace-db-pvc
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: marketplace-product-db
+  namespace: marketplace
+spec:
+  serviceName: "marketplace-product-db"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: marketplace-product-db
+  template:
+    metadata:
+      labels:
+        app: marketplace-product-db
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:latest
+          env:
+            - name: POSTGRES_DB
+              value: postgres
+            - name: POSTGRES_USER
+              value: postgres
+            - name: POSTGRES_PASSWORD
+              value: postgres
+          volumeMounts:
+            - name: db-storage
+              mountPath: /var/lib/postgresql/data
+              subPath: marketplace-product-data
+      volumes:
+        - name: db-storage
+          persistentVolumeClaim:
+            claimName: marketplace-db-pvc
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: marketplace-order-db
+  namespace: marketplace
+spec:
+  serviceName: "marketplace-order-db"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: marketplace-order-db
+  template:
+    metadata:
+      labels:
+        app: marketplace-order-db
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:latest
+          env:
+            - name: POSTGRES_DB
+              value: postgres
+            - name: POSTGRES_USER
+              value: postgres
+            - name: POSTGRES_PASSWORD
+              value: postgres
+          volumeMounts:
+            - name: db-storage
+              mountPath: /var/lib/postgresql/data
+              subPath: marketplace-order-data
+      volumes:
+        - name: db-storage
+          persistentVolumeClaim:
+            claimName: marketplace-db-pvc
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: marketplace-wishlist-db
+  namespace: marketplace
+spec:
+  serviceName: "marketplace-wishlist-db"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: marketplace-wishlist-db
+  template:
+    metadata:
+      labels:
+        app: marketplace-wishlist-db
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:latest
+          env:
+            - name: POSTGRES_DB
+              value: postgres
+            - name: POSTGRES_USER
+              value: postgres
+            - name: POSTGRES_PASSWORD
+              value: postgres
+          volumeMounts:
+            - name: db-storage
+              mountPath: /var/lib/postgresql/data
+              subPath: marketplace-wishlist-data
+      volumes:
+        - name: db-storage
+          persistentVolumeClaim:
+            claimName: marketplace-db-pvc
