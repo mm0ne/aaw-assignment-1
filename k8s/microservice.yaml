@@ -13,10 +13,12 @@ spec:
       labels:
         app: marketplace-auth
     spec:
+      nodeSelector:
+        type: microservice
       containers:
         - name: marketplace-auth
-          image: marketplace-auth:latest
-          imagePullPolicy: Never
+          image: rhfrhf/marketplace-auth:latest
+
           ports:
             - containerPort: 8000
           env:
@@ -64,11 +66,11 @@ spec:
                   key: DB_NAME
           resources:
             limits:
-              cpu: "500m"
-              memory: "512Mi"
-            requests:
               cpu: "250m"
               memory: "256Mi"
+            requests:
+              cpu: "100m"
+              memory: "100Mi"
           livenessProbe:
             httpGet:
               path: /health
@@ -101,10 +103,12 @@ spec:
       labels:
         app: marketplace-tenant
     spec:
+      nodeSelector:
+        type: microservice
       containers:
         - name: marketplace-tenant
-          image: marketplace-tenant:latest
-          imagePullPolicy: Never
+          image: rhfrhf/marketplace-tenant:latest
+
           ports:
             - containerPort: 8000
           env:
@@ -157,11 +161,11 @@ spec:
                   key: DB_NAME
           resources:
             limits:
-              cpu: "500m"
-              memory: "512Mi"
-            requests:
               cpu: "250m"
               memory: "256Mi"
+            requests:
+              cpu: "100m"
+              memory: "100Mi"
           livenessProbe:
             httpGet:
               path: /health
@@ -194,13 +198,17 @@ spec:
       labels:
         app: marketplace-product
     spec:
+      nodeSelector:
+        type: microservice
       containers:
         - name: marketplace-product
-          image: marketplace-product:latest
-          imagePullPolicy: Never
+          image: rhfrhf/marketplace-product:latest
+
           ports:
             - containerPort: 8000
           env:
+            - name: UV_THREADPOOL_SIZE
+              value: "16"
             - name: DB_HOST
               value: "marketplace-product-db"
             - name: ADMIN_JWT_SECRET
@@ -255,11 +263,11 @@ spec:
                   key: DB_NAME
           resources:
             limits:
-              cpu: "500m"
-              memory: "512Mi"
-            requests:
               cpu: "250m"
               memory: "256Mi"
+            requests:
+              cpu: "100m"
+              memory: "100Mi"
           livenessProbe:
             httpGet:
               path: /health
@@ -293,10 +301,12 @@ spec:
       labels:
         app: marketplace-order
     spec:
+      nodeSelector:
+        type: microservice
       containers:
         - name: marketplace-order
-          image: marketplace-order:latest
-          imagePullPolicy: Never
+          image: rhfrhf/marketplace-order:latest
+
           ports:
             - containerPort: 8000
           env:
@@ -354,11 +364,11 @@ spec:
                   key: DB_NAME
           resources:
             limits:
-              cpu: "500m"
-              memory: "512Mi"
-            requests:
               cpu: "250m"
               memory: "256Mi"
+            requests:
+              cpu: "100m"
+              memory: "100Mi"
           livenessProbe:
             httpGet:
               path: /health
@@ -391,10 +401,12 @@ spec:
       labels:
         app: marketplace-wishlist
     spec:
+      nodeSelector:
+        type: microservice
       containers:
         - name: marketplace-wishlist
-          image: marketplace-wishlist:latest
-          imagePullPolicy: Never
+          image: rhfrhf/marketplace-wishlist:latest
+
           ports:
             - containerPort: 8000
           env:
@@ -447,11 +459,11 @@ spec:
                   key: DB_NAME
           resources:
             limits:
-              cpu: "500m"
-              memory: "512Mi"
-            requests:
               cpu: "250m"
               memory: "256Mi"
+            requests:
+              cpu: "100m"
+              memory: "100Mi"
           livenessProbe:
             httpGet:
               path: /health
