@@ -8,3 +8,4 @@ bun.lockb
 dist
 drizzle
 kubeconfig
+multi-node-setup.py
