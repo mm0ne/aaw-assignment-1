@@ -1,3 +1,5 @@
+# Repeat for each StatefulSet
+# marketplace-auth-db
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -15,6 +17,8 @@ spec:
       labels:
         app: marketplace-auth-db
     spec:
+      nodeSelector:
+        type: microservice
       containers:
         - name: postgres
           image: postgres:latest
@@ -25,15 +29,27 @@ spec:
               value: postgres
             - name: POSTGRES_PASSWORD
               value: postgres
+          resources:
+            limits:
+              cpu: "150m"
+              memory: "150Mi"
+            requests:
+              cpu: "100m"
+              memory: "100Mi"
           volumeMounts:
-            - name: db-storage
+            - name: auth-db-data
               mountPath: /var/lib/postgresql/data
-              subPath: marketplace-auth-data
-      volumes:
-        - name: db-storage
-          persistentVolumeClaim:
-            claimName: marketplace-db-pvc
+  volumeClaimTemplates:
+    - metadata:
+        name: auth-db-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
+
 ---
+# marketplace-tenant-db
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -50,6 +66,8 @@ spec:
       labels:
         app: marketplace-tenant-db
     spec:
+      nodeSelector:
+        type: microservice
       containers:
         - name: postgres
           image: postgres:latest
@@ -60,15 +78,27 @@ spec:
               value: postgres
             - name: POSTGRES_PASSWORD
               value: postgres
+          resources:
+            limits:
+              cpu: "150m"
+              memory: "150Mi"
+            requests:
+              cpu: "100m"
+              memory: "100Mi"
           volumeMounts:
-            - name: db-storage
+            - name: tenant-db-data
               mountPath: /var/lib/postgresql/data
-              subPath: marketplace-tenant-data
-      volumes:
-        - name: db-storage
-          persistentVolumeClaim:
-            claimName: marketplace-db-pvc
+  volumeClaimTemplates:
+    - metadata:
+        name: tenant-db-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
+
 ---
+# marketplace-product-db
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -85,6 +115,8 @@ spec:
       labels:
         app: marketplace-product-db
     spec:
+      nodeSelector:
+        type: microservice
       containers:
         - name: postgres
           image: postgres:latest
@@ -95,15 +127,26 @@ spec:
               value: postgres
             - name: POSTGRES_PASSWORD
               value: postgres
+          resources:
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
+            requests:
+              cpu: "100m"
+              memory: "100Mi"
           volumeMounts:
-            - name: db-storage
+            - name: product-db-data
               mountPath: /var/lib/postgresql/data
-              subPath: marketplace-product-data
-      volumes:
-        - name: db-storage
-          persistentVolumeClaim:
-            claimName: marketplace-db-pvc
+  volumeClaimTemplates:
+    - metadata:
+        name: product-db-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
 ---
+# marketplace-order-db
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -120,6 +163,8 @@ spec:
       labels:
         app: marketplace-order-db
     spec:
+      nodeSelector:
+        type: microservice
       containers:
         - name: postgres
           image: postgres:latest
@@ -130,15 +175,27 @@ spec:
               value: postgres
             - name: POSTGRES_PASSWORD
               value: postgres
+          resources:
+            limits:
+              cpu: "150m"
+              memory: "150Mi"
+            requests:
+              cpu: "100m"
+              memory: "100Mi"
           volumeMounts:
-            - name: db-storage
+            - name: order-db-data
               mountPath: /var/lib/postgresql/data
-              subPath: marketplace-order-data
-      volumes:
-        - name: db-storage
-          persistentVolumeClaim:
-            claimName: marketplace-db-pvc
+  volumeClaimTemplates:
+    - metadata:
+        name: order-db-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
+
 ---
+# marketplace-wishlist-db
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -155,6 +212,8 @@ spec:
       labels:
         app: marketplace-wishlist-db
     spec:
+      nodeSelector:
+        type: microservice
       containers:
         - name: postgres
           image: postgres:latest
@@ -165,11 +224,21 @@ spec:
               value: postgres
             - name: POSTGRES_PASSWORD
               value: postgres
+          resources:
+            limits:
+              cpu: "150m"
+              memory: "150Mi"
+            requests:
+              cpu: "100m"
+              memory: "100Mi"
           volumeMounts:
-            - name: db-storage
+            - name: wishlist-db-data
               mountPath: /var/lib/postgresql/data
-              subPath: marketplace-wishlist-data
-      volumes:
-        - name: db-storage
-          persistentVolumeClaim:
-            claimName: marketplace-db-pvc
+  volumeClaimTemplates:
+    - metadata:
+        name: wishlist-db-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
