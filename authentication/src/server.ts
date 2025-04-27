@@ -28,8 +28,8 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use("/api/auth/v1", authRoutesV1);
-app.use("/api/auth/v2", authRoutesV2);
+app.use("/api/v1/auth", authRoutesV1);
+app.use("/api/v2/auth", authRoutesV2);
 
 // Health check endpoint
 app.get("/health", (_, res) => {

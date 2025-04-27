@@ -10,6 +10,9 @@ const DB_NAME = process.env.DB_NAME ?? "postgres";
 
 export const pool = new Pool({
   connectionString: `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
+  max: 20, // <-- Max 20 clients at once
+  idleTimeoutMillis: 30000, // Close idle clients after 30s
+  connectionTimeoutMillis: 2000, // Return error if connection takes >2s
 });
 
 export const db = drizzle(pool);
