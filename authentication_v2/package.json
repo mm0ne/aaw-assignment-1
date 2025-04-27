@@ -1,0 +1,24 @@
+{
+  "name": "authentication_v2",
+  "version": "1.0.50",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pack": "bun build src/index.ts --outdir dist",
+    "dev": "bun run --watch src/index.ts"
+  },
+  "dependencies": {
+    "@elysiajs/opentelemetry": "^1.2.0",
+    "@types/bcrypt": "^5.0.2",
+    "@types/pg": "^8.11.14",
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.5.0",
+    "drizzle-orm": "^0.43.1",
+    "elysia": "latest",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.15.6"
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "module": "src/index.js"
+}
