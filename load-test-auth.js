@@ -9,7 +9,7 @@ export const options = {
 export default function () {
     const url = 'http://localhost:10000/api/v1/auth/login';
     const payload = JSON.stringify({
-        username: 'asterrr',
+        username: 'asterrr1111111',
         password: 'aA1aA1aA1',
     });
 

@@ -4,13 +4,17 @@ import {
 } from "@src/commons/patterns";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { getUserById } from "../dao/getUserById.dao";
+import {performance} from "perf_hooks"
 
 export const verifyTokenService = async (token: string) => {
   try {
+    const startTime = performance.now()
     const payload = jwt.verify(
       token,
       process.env.JWT_SECRET as string
     ) as JwtPayload;
+    const endTime = performance.now()
+    console.log(`[INFO] Time taken for JWT verify ${(endTime - startTime).toFixed(2)} ms`)
 
     const { id, tenant_id } = payload;
     const SERVER_TENANT_ID = process.env.TENANT_ID;

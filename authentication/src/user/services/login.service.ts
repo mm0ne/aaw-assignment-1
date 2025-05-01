@@ -1,12 +1,13 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { getUserByUsername } from "../dao/getUserByUsername.dao";
-
+import { performance } from "perf_hooks";
 import {
   InternalServerErrorResponse,
   NotFoundResponse,
 } from "@src/commons/patterns";
 import { User } from "@db/schema/users";
+import argon2 from "argon2"
 
 export const loginService = async (username: string, password: string) => {
   try {
@@ -20,8 +21,12 @@ export const loginService = async (username: string, password: string) => {
     if (!user) {
       return new NotFoundResponse("User not found").generate();
     }
+    const startTime = performance.now()
+    // const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await argon2.verify(user.password, password)
+    const endTime = performance.now()
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    console.log(`[INFO] Time taken for argon2 hash compare ${(endTime - startTime).toFixed(2)}`)
     if (!isPasswordValid) {
       return new NotFoundResponse("Invalid password").generate();
     }
