@@ -17,7 +17,7 @@ COPY . .
 RUN pnpm run build
 
 # Production image
-FROM node:18.18.2-slim
+FROM oven/bun:1.1.4-slim
 
 ENV PORT 8000
 ENV NODE_ENV production
@@ -31,4 +31,4 @@ RUN npm install --only=production
 
 EXPOSE 8000
 
-CMD ["node", "dist/src/server.js"]
+CMD ["bun", "dist/src/server.js"]
