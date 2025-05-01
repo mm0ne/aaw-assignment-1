@@ -7,9 +7,10 @@ export const options = {
 };
 
 export default function () {
-    const url = 'http://localhost:10000/api/v1/auth/login';
+    const  hostmane = "3.88.101.160"
+    const url = `http://${hostmane}:10000/api/v1/auth/login`;
     const payload = JSON.stringify({
-        username: 'asterrr1111111',
+        username: 'asterrr11111111',
         password: 'aA1aA1aA1',
     });
 
